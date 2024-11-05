@@ -1,4 +1,4 @@
-# wmain 为化简操作而做的项目
+# 自用库
 ## 一. 配置管理
 ```python
 from wmain.autosave import WAutoSave
@@ -31,9 +31,9 @@ user.email = "new_email"
 user.friend.name = "new_friend_name"
 ```
 
-## 二. requests中session的重新封装
+## 二. requests中session的重新封装, 以及url的封装
 ```python
-from wmain.requests import WSession
+from wmain.requests import WSession, WUrl
 session = WSession()
 session.ini.set_proxy(7890)
 # 发送请求, 请求头已经随机携带
@@ -49,7 +49,17 @@ str_elements = resp.xpath_str('//*[@class="title-content-title"]')
 print(elements)
 print(str_elements)
 # 更加方便的cookie导入, cookie_str请自己定义
-session.load_cookies_str(cookie_str)
+cookie_str = "test_key=test_value;   test_key2=test_value2        "
+session.load_cookies_str(cookie_str, "www.baidu.com")
+get_cookies_url = WUrl("https://www.ip89.com/api2.php")
+# 字符串键值会修改query, 数字键值会修改path
+get_cookies_url["r"] = "1"
+get_cookies_url["ac"] = "get-cookies"
+get_cookies_url["url"] = "https://www.baidu.com"
+# 发送请求, 自动携带cookie
+resp = session.get(get_cookies_url)
+print(get_cookies_url)
+print(resp.json["data"]["cookies"])
 # 保存到文件, 方便下次导入cookie
 session.save_cookies_file("cookies.txt")
 # session.load_cookies_file("cookies.txt")
