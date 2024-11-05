@@ -25,6 +25,7 @@ class WMultiThread:
         except StopIteration:
             pass
         self._lock.acquire()
+        self._is_running_thread_num -= 1
         self._end_time = time.time()
         self._is_running = False
         if self._finished_callback_func:
@@ -38,13 +39,14 @@ class WMultiThread:
         self._begin_time = time.time()
         self._finished_tasks_num = 0
         self._all_tasks_num = len(tasks)
+        self._is_running_thread_num = self.thread_num
         self._tasks = iter(tasks)
         for i in range(self.thread_num):
             threading.Thread(target=self._run_func, args=args, kwargs=kwargs).start()
 
     def set_finished_callback_func(self, func: callable):
         self._finished_callback_func = func
-
+    
     @property
     def begin_time(self):
         return self._begin_time

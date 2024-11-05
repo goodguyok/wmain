@@ -70,7 +70,7 @@ class WSession:
             )
         )
 
-    def save_cookies(self, filename: str):
+    def save_cookies_file(self, filename: str):
         with open(filename, "w") as f:
             f.write(json.dumps(dict_from_cookiejar(self.session.cookies)))
 

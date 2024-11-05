@@ -121,16 +121,3 @@ class WEdgeDownloader:
             if "driver" in filename:
                 return WEdgeDriver(self.path + "/" + filename)
         return None
-                
-        
-
-if __name__ == "__main__":
-    s = WSession()
-    s.ini.set_proxy(20000)
-    dn = WEdgeDownloader(s)
-    dn("126.0.2592.56 ")
-    edge = dn.get_driver()
-    edge.start()
-    edge.get("https://iedu.jlu.edu.cn")
-    while 1:
-        time.sleep(1)

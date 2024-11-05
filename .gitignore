@@ -1,6 +1,7 @@
 /*
 __pycache__
 !.gitignore
+!README.md
 !/wmain/
 !/test_*.py
 !captcha.jpeg
