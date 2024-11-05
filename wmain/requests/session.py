@@ -54,7 +54,6 @@ class WSession:
     def get(
         self, url: Union[WUrl, str], ini: WRequestINI = None, **kwargs
     ) -> WResponse:
-        print(self.__dic(ini, **kwargs))
         return WResponse(self.session.get(str(url), **self.__dic(ini, **kwargs)))
 
     def post(
